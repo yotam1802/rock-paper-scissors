@@ -21,25 +21,76 @@ function fixCaseSensitivity(playerSelection) {
 function playRound(playerSelection, computerSelection) {
     switch(playerSelection) {
         case "Rock":
-            if (computerSelection == "Rock") return "It's a tie! Rock and rock.";
-            else if (computerSelection == "Paper") return "You lose! Paper beats rock.";
-            else if (computerSelection == "Scissors") return "You win! Rock beats scissors.";
+            if (computerSelection == "Rock") {
+                console.log("It's a tie! Rock and rock.");
+                return "None";
+            }
+            else if (computerSelection == "Paper") {
+                console.log("You lose! Paper beats rock.");
+                return "Computer";
+            }
+            else if (computerSelection == "Scissors") {
+                console.log("You win! Rock beats scissors.");
+                return "User";
+            }
             break;
         case "Paper":
-            if (computerSelection == "Rock") return "You win! Paper beats rock.";
-            else if (computerSelection == "Paper") return "It's a tie! Paper and paper.";
-            else if (computerSelection == "Scissors") return "You lose! Scissors beats paper.";
+            if (computerSelection == "Rock") {
+                console.log("You win! Paper beats rock.");
+                return "User"
+            }
+            else if (computerSelection == "Paper") {
+                console.log("It's a tie! Paper and paper.");
+                return "None";
+            }
+            else if (computerSelection == "Scissors") {
+                console.log("You lose! Scissors beats paper.");
+                return "Computer";
+            }
             break;
         case "Scissors":
-            if (computerSelection == "Rock") return "You lose! Rock beats scissors.";
-            else if (computerSelection == "Paper") return "You win! Scissors beats paper.";
-            else if (computerSelection == "Scissors") return "It's a tie! Scissors and scissors.";
+            if (computerSelection == "Rock") {
+                console.log("You lose! Rock beats scissors.");
+                return "Computer";
+            }
+            else if (computerSelection == "Paper") {
+                console.log("You win! Scissors beats paper.");
+                return "User";
+            }
+            else if (computerSelection == "Scissors") {
+                console.log("It's a tie! Scissors and scissors.");
+                return "None";
+            }
     }
 }
 
-let computerSelection = getComputerChoice();
-let playerSelection = prompt("Please choose Rock, Paper, or Scissors");
-playerSelection = fixCaseSensitivity(playerSelection);
-let result = playRound(playerSelection, computerSelection);
-console.log(result);
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let computerSelection = getComputerChoice();
+        let playerSelection = prompt("Please choose Rock, Paper, or Scissors");
+        playerSelection = fixCaseSensitivity(playerSelection);
+        let result = playRound(playerSelection, computerSelection);
+
+        switch (result) {
+            case "None":
+                break;
+            case "Computer":
+                computerScore++;
+                break;
+            case "User":
+                playerScore++;
+                break;
+        }
+    }
+
+    if (playerScore > computerScore) return `You win! ${playerScore}:${computerScore}`;
+    else if (playerScore < computerScore) return `You lose! ${playerScore}:${computerScore}`;
+    else return `The game was a tie! ${playerScore}:${computerScore}`;
+}
+
+console.log(game());
+
 
